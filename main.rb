@@ -32,8 +32,3 @@ module Enumerable
     true
   end
 end
-
-
-words = %w[bacon orang apple]
-
-puts [].my_all? {|str| str.size == 5}
