@@ -23,4 +23,12 @@ module Enumerable
     end
     arr
   end
+
+  # my_all? method
+  def my_all?
+    my_each do |var|
+      false unless yield var
+    end
+    true
+  end
 end
