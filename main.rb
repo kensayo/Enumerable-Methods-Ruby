@@ -23,4 +23,17 @@ module Enumerable
     end
     arr
   end
+
+  # my_all? method
+  def my_all?
+    my_each do |var|
+      false unless yield var
+    end
+    true
+  end
 end
+
+
+words = %w[bacon orang apple]
+
+puts [].my_all? {|str| str.size == 5}
