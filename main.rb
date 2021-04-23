@@ -65,4 +65,10 @@ module Enumerable
     end
     counter
   end
+
+  def my_map
+    mp_new=[]
+    my_each { |var| mp_new.push(yield(var))}
+    mp_new
+  end
 end
