@@ -41,13 +41,20 @@ module Enumerable
       end
     when Class
       to_a.my_each do |var|
-        return false unless var.instance_of?(args)
+        return false unless var.class.superclass == args || var.class == args
       end
     else  
-    return true unless block_given?
+    unless block_given?
+      to_a.my_each do |var|
+        return false unless var
+      else return true
+      end
+      
+    end  
 
     to_a.size.times do |i|
       return false unless yield to_a[i]
+    end
     end
     true
   end
@@ -82,7 +89,7 @@ module Enumerable
       end
     when Class
       to_a.my_each do |var|
-        return false if var.instance_of?(args)
+        return false if var.class==args || var.class.superclass==args
       end
     else  
     return false unless block_given?
@@ -90,6 +97,7 @@ module Enumerable
     my_each do |var|
       return false if yield var
     end
+  end
     true
   end
 
@@ -121,4 +129,11 @@ module Enumerable
     mp_new
   end
 
+
+p "all example"
+p %w[ant bear cat].my_all? { |word| word.length >= 3 } #=> true
+p %w[ant bear cat].my_all? { |word| word.length >= 4 } #=> false
+p %w[ant bear cat].my_all?(/a/)                        #=> false
+p [1, 2, 3].my_all?(Numeric)                       #=> true
+p [nil, true, 99].my_all?                              #=> false
 end
