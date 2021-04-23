@@ -41,4 +41,20 @@ module Enumerable
     end
     true
   end
+
+  def my_any?
+    return true unless block_given?    
+    my_each do |var|
+     return true if yield var
+    end
+    false
+  end
+
+  def my_none?
+    return false unless block_given?  
+    my_each do |var|
+     return false if yield var
+    end
+    true
+  end
 end
