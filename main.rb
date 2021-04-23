@@ -57,4 +57,12 @@ module Enumerable
     end
     true
   end
+
+  def my_count
+    counter=0
+    my_each do |var|
+      counter+=1 if yield var
+    end
+    counter
+  end
 end
