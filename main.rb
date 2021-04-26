@@ -33,28 +33,20 @@ module Enumerable
   end
 
   # my_all? method
-  def my_all? (args=nil)
+  def my_all?(args = nil)
     case args
     when Regexp
-      to_a.my_each do |var|
-        return false unless args.match(var)
-      end
-    when Class
-      to_a.my_each do |var|
-        return false unless var.class.superclass == args || var.class == args
-      end
-    else  
-    unless block_given?
-      to_a.my_each do |var|
-        return false unless var
-      else return true
-      end
-      
-    end  
+      to_a.my_each { |var| return false unless args.match(var) }
 
-    to_a.size.times do |i|
-      return false unless yield to_a[i]
-    end
+    when Class
+      to_a.my_each { |var| return false unless var.class.superclass == args || var.instance_of?(args) }
+    else
+      unless block_given?
+        to_a.my_each { |var| return false unless var }
+        return true
+      end
+
+      to_a.size.times { |i| return false unless yield to_a[i] }
     end
     true
   end
@@ -63,77 +55,69 @@ module Enumerable
   def my_any?(args = nil)
     case args
     when Regexp
-      to_a.my_each do |var|
-        return true if args.match(var)
-      end
+      to_a.my_each { |var| return true if args.match(var) }
     when Class
-      to_a.my_each do |var|
-        return true if var.instance_of?(args)
-      end
+      to_a.my_each { |var| return true if var.class.superclass == args || var.instance_of?(args) }
     else
-      return true unless block_given?
-
-      to_a.my_each do |var|
-        return true if yield var
+      unless block_given?
+        to_a.my_each { |var| return true if var == true }
+        return false
       end
+
+      to_a.my_each { |var| return true if yield var }
     end
     false
   end
 
   # my_none? Method
-  def my_none?(args=nil)
+  def my_none?(args = nil)
     case args
     when Regexp
       to_a.my_each do |var|
-        return false if args.match(var)
+        my_regexp(false, var)
       end
     when Class
-      to_a.my_each do |var|
-        return false if var.class==args || var.class.superclass==args
+      to_a.my_each { |var| return false if var.class.superclass == args || var.instance_of?(args) }
+    else
+      unless block_given?
+        to_a.my_each { |var| return false if var }
+        return true
       end
-    else  
-    return false unless block_given?
 
-    my_each do |var|
-      return false if yield var
+      my_each { |var| return false if yield var }
     end
-  end
     true
   end
 
   # my_count Method
-  def my_count (num=nil)
+  def my_count(num = nil)
     return to_a.size unless block_given?
-    counter=0
+
+    counter = 0
     if num
-      my_each do 
-        |var| 
-        if var == num
-          counter+=1
-        end
+      my_each do |var|
+        counter += 1 if var == num
       end
 
     else
-    my_each do |var|
-      counter+=1 if yield var
+      my_each do |var|
+        counter += 1 if yield var
+      end
     end
-  end
     counter
   end
 
   # my_map Method
   def my_map
     return to_enum(:my_map) unless block_given?
-    mp_new=[]
-    my_each { |var| mp_new.push(yield(var))}
+
+    mp_new = []
+    my_each { |var| mp_new.push(yield(var)) }
     mp_new
   end
 
-
-p "all example"
-p %w[ant bear cat].my_all? { |word| word.length >= 3 } #=> true
-p %w[ant bear cat].my_all? { |word| word.length >= 4 } #=> false
-p %w[ant bear cat].my_all?(/a/)                        #=> false
-p [1, 2, 3].my_all?(Numeric)                       #=> true
-p [nil, true, 99].my_all?                              #=> false
+  def my_regexp(xav, var)
+    return xav if args.match(var)
+  end
+  p 'hello world'
 end
