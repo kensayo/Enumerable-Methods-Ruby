@@ -34,58 +34,51 @@ module Enumerable
 
   # my_all? method
   def my_all?(args = nil)
-    case args
-    when Regexp
-      to_a.my_each { |var| return false unless args.match(var) }
-
-    when Class
-      to_a.my_each { |var| return false unless var.class.superclass == args || var.instance_of?(args) }
-    else
-      unless block_given?
-        to_a.my_each { |var| return false unless var }
+    unless block_given?
+      if args.instance_of?(Regexp)
+        to_a.my_each { |var| return false unless args.match(var) }
         return true
+      else
+        to_a.my_each { |var| return false unless my_instance_of(args, var) }
       end
-
-      to_a.size.times { |i| return false unless yield to_a[i] }
+      to_a.my_each { |var| return false unless var }
+      return true
     end
+    to_a.size.times { |i| return false unless yield to_a[i] }
+
     true
   end
 
   # my_any? Method
   def my_any?(args = nil)
-    case args
-    when Regexp
-      to_a.my_each { |var| return true if args.match(var) }
-    when Class
-      to_a.my_each { |var| return true if var.class.superclass == args || var.instance_of?(args) }
-    else
-      unless block_given?
-        to_a.my_each { |var| return true if var == true }
+    unless block_given?
+      if args.instance_of?(Regexp)
+        to_a.my_each { |var| return true if args.match(var) }
         return false
+      else
+        to_a.my_each { |var| return true if my_instance_of(args, var) }
       end
 
-      to_a.my_each { |var| return true if yield var }
+      to_a.my_each { |var| return true if var == true }
+      return false
     end
+    to_a.my_each { |var| return true if yield var }
     false
   end
 
   # my_none? Method
   def my_none?(args = nil)
-    case args
-    when Regexp
-      to_a.my_each do |var|
-        my_regexp(false, var)
-      end
-    when Class
-      to_a.my_each { |var| return false if var.class.superclass == args || var.instance_of?(args) }
-    else
-      unless block_given?
-        to_a.my_each { |var| return false if var }
+    unless block_given?
+      if args.instance_of?(Regexp)
+        to_a.my_each { |var| return false if args.match(var) }
         return true
+      else
+        to_a.my_each { |var| return false if my_instance_of(args, var) }
       end
-
-      my_each { |var| return false if yield var }
+      to_a.my_each { |var| return false if var }
+      return true
     end
+    my_each { |var| return false if yield var }
     true
   end
 
@@ -116,8 +109,9 @@ module Enumerable
     mp_new
   end
 
-  def my_regexp(xav, var)
-    return xav if args.match(var)
+  def my_instance_of(args, var)
+    return true if var.instance_of?(var) || var.class.superclass == args
+
+    false
   end
-  p 'hello world'
 end
