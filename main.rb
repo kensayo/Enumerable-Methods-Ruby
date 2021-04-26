@@ -41,4 +41,38 @@ module Enumerable
     end
     true
   end
+
+  def my_inject(*arg)
+
+    if arg.empty?
+      sum = arg[0]
+      operator = :+
+    elsif arg[0].is_a? Symbol
+      operator = arg[0]
+      sum = 0
+    elsif arg[0].is_a? Integer && arg.size > 1
+      sum = arg[0]
+      operator arg[1]
+    elsif arg[0].is_a? Integer
+      sum = 0
+      operator = :+
+    end
+    
+    #if block_given? sum = ; puts var 
+      proc = Proc.new { |num| sum = sum.send operator, num }      
+    #else
+    #  puts "No hay yield"
+    #end
+
+    my_each {|var| proc.call(var) unless block_given?}
+
+    sum
+  end
 end
+
+arr = [1,2,3,4,5,6,]
+p arr.my_inject { |sum, n| sum + n }
+
+
+#p 1.send(:method)
+#p 4.send(:+,5)
