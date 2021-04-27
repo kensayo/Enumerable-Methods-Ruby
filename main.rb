@@ -42,37 +42,45 @@ module Enumerable
     true
   end
 
-  def my_inject(*arg)
+  def my_initemect(*arg)
 
-    if arg.empty?
-      sum = arg[0]
-      operator = :+
-    elsif arg[0].is_a? Symbol
-      operator = arg[0]
-      sum = 0
-    elsif arg[0].is_a? Integer && arg.size > 1
-      sum = arg[0]
-      operator arg[1]
-    elsif arg[0].is_a? Integer
-      sum = 0
-      operator = :+
-    end
-    
-    #if block_given? sum = ; puts var 
-      proc = Proc.new { |num| sum = sum.send operator, num }      
-    #else
-    #  puts "No hay yield"
-    #end
+    var = var.is_a?(Range) ? var.to_a : self
 
-    my_each {|var| proc.call(var) unless block_given?}
+    base = arg[0].is_a?(Integer) ? arg[0] : 0
+    operator = arg[0].is_a?(Symbol) ? arg[0] : arg[1]
+        p operator
+        p base
+    my_each {|var| base = base.send operator, var}
 
-    sum
+    base
   end
+
+  def my_inject(arg1 = nil, arg2 = nil)
+
+    if arg1.is_a?(Symbol) && !arg2
+      base = to_a[0]
+      1.upto(to_a.length - 1) { |item| base = base.send(arg1, to_a[item]) }
+    elsif arg1.is_a?(Integer) && !arg2
+      base = arg1
+      1.upto(to_a.length - 1) { |item| base = base.send(:+, to_a[item]) }
+    elsif !arg1.is_a?(Symbol) && arg2.is_a?(Symbol)
+      base = arg1
+      0.upto(to_a.length - 1) { |item| base = base.send(arg2, to_a[item]) }
+    elsif block_given? && arg1
+      base = arg1
+      to_a.my_each { |val| base = yield(base, val) }
+    elsif block_given? && !arg1
+      base = to_a[0]
+      1.upto(to_a.length - 1) { |item| base = yield(base, to_a[item]) }
+    elsif !block_given? && !arg1
+      raise LocalJumpError
+    else
+      return 'Input Error'
+    end
+    base
+  end
+
 end
 
-arr = [1,2,3,4,5,6,]
-p arr.my_inject { |sum, n| sum + n }
-
-
-#p 1.send(:method)
-#p 4.send(:+,5)
+arr = [1,2,3]
+p arr.my_inject(100)
