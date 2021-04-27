@@ -33,9 +33,9 @@ module Enumerable
   end
 
   # my_all? method
-  def my_all?(args = nil)
+  def my_all?(args = nil) 
     unless block_given?
-      if args.instance_of?(Regexp)
+      if args.instance_of?(Regexp) 
         to_a.my_each { |var| return false unless args.match(var) }
         return true
       else
@@ -110,7 +110,7 @@ module Enumerable
   end
 
   def my_instance_of(args, var)
-    return true if var.instance_of?(var) || var.class.superclass == args
+    return true if var.instance_of?(args) || var.class.superclass == args
 
     false
   end
