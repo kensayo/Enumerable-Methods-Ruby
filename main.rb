@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/ModuleLength
 module Enumerable
   # my_each method
   def my_each
@@ -32,9 +33,6 @@ module Enumerable
     arr
   end
 
-  
-
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def my_inject(arg1 = nil, arg2 = nil)
     if arg1.is_a?(Symbol) && !arg2
       base = to_a[0]
@@ -56,9 +54,9 @@ module Enumerable
     base
   end
 
-  def my_all?(args = nil) 
+  def my_all?(args = nil)
     unless block_given?
-      if args.instance_of?(Regexp) 
+      if args.instance_of?(Regexp)
         to_a.my_each { |var| return false unless args.match(var) }
         return true
       else
@@ -137,5 +135,5 @@ module Enumerable
 
     false
   end
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 end
+# rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity,  Metrics/ModuleLength
