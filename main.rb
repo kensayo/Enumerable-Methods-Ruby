@@ -1,6 +1,3 @@
-# rubocop:disable Metrics/CyclomaticComplexity
-# rubocop:disable Metrics/PerceivedComplexity
-
 module Enumerable
   # my_each method
   def my_each
@@ -45,6 +42,7 @@ module Enumerable
     true
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def my_inject(arg1 = nil, arg2 = nil)
     if arg1.is_a?(Symbol) && !arg2
       base = to_a[0]
@@ -61,8 +59,9 @@ module Enumerable
     elsif !block_given? && !arg1
       raise LocalJumpError
     else
-      return 'Input Error'
+      raise LocalJumpError, 'No block given'
     end
     base
   end
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 end
