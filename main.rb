@@ -1,6 +1,5 @@
 # rubocop:disable Metrics/CyclomaticComplexity
 # rubocop:disable Metrics/PerceivedComplexity
-# rubocop:disable Metrics/MethodLength
 
 module Enumerable
   # my_each method
@@ -50,9 +49,6 @@ module Enumerable
     if arg1.is_a?(Symbol) && !arg2
       base = to_a[0]
       1.upto(to_a.length - 1) { |item| base = base.send(arg1, to_a[item]) }
-    elsif arg1.is_a?(Integer) && !arg2
-      base = arg1
-      1.upto(to_a.length - 1) { |item| base = base.send(:+, to_a[item]) }
     elsif !arg1.is_a?(Symbol) && arg2.is_a?(Symbol)
       base = arg1
       0.upto(to_a.length - 1) { |item| base = base.send(arg2, to_a[item]) }
