@@ -46,18 +46,6 @@ module Enumerable
     true
   end
 
-  def my_initemect(*arg)
-    var = var.is_a?(Range) ? var.to_a : self
-
-    base = arg[0].is_a?(Integer) ? arg[0] : 0
-    operator = arg[0].is_a?(Symbol) ? arg[0] : arg[1]
-    p operator
-    p base
-    my_each { |var| base = base.send operator, var }
-
-    base
-  end
-
   def my_inject(arg1 = nil, arg2 = nil)
     if arg1.is_a?(Symbol) && !arg2
       base = to_a[0]
