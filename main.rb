@@ -1,4 +1,4 @@
-# rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/ModuleLength
+# rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/ModuleLength, Style/ClassEqualityComparison
 module Enumerable
   # my_each method
   def my_each
@@ -59,7 +59,7 @@ module Enumerable
       if args.instance_of?(Regexp)
         to_a.my_each { |var| return false unless args.match(var) }
         return true
-      else
+      elsif args
         to_a.my_each { |var| return false unless my_instance_of(args, var) }
       end
       to_a.my_each { |var| return false unless var }
@@ -76,7 +76,7 @@ module Enumerable
       if args.instance_of?(Regexp)
         to_a.my_each { |var| return true if args.match(var) }
         return false
-      else
+      elsif args
         to_a.my_each { |var| return true if my_instance_of(args, var) }
       end
 
@@ -93,7 +93,7 @@ module Enumerable
       if args.instance_of?(Regexp)
         to_a.my_each { |var| return false if args.match(var) }
         return true
-      else
+      elsif args
         to_a.my_each { |var| return false if my_instance_of(args, var) }
       end
       to_a.my_each { |var| return false if var }
@@ -131,9 +131,43 @@ module Enumerable
   end
 
   def my_instance_of(args, var)
-    return true if var.instance_of?(args) || var.class.superclass == args
+    return true if var.class == args || var.class.superclass == args
 
     false
   end
 end
-# rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity,  Metrics/ModuleLength
+p 'all example' # ALL
+# rubocop:disable Lint/AmbiguousBlockAssociation
+p %w[anta bear cata].my_all? { |word| word.length >= 3 } #=> true
+p %w[ant bear cat].my_all? { |word| word.length >= 4 } #=> false
+p %w[cat cat cat].my_all?(/b/) #=> false
+p [1, 2i, 5].my_all?(Numeric) #=> true
+p [nil, true, 99].my_all? #=> false
+p [].my_all? #=> true
+p 'any examples' # ANY
+
+p %w[ant bear cat].my_any? { |word| word.length >= 3 } #=> true
+p %w[ant bear cat].my_any? { |word| word.length >= 4 } #=> true
+p %w[ant bear cat].my_any?(/d/) #=> false
+p [nil, true, 99].my_any?(Integer) #=> true
+p [nil, true, 99].my_any? #=> true
+p [].my_any? #=> false
+p 'none examples' # NONE
+p %w[ant bear cat].my_none? { |word| word.length == 5 } #=> true
+p %w[ant bear cat].my_none? { |word| word.length >= 4 } #=> false
+p %w[ant bear cat].my_none?(/d/) #=> true
+p [1, 3.14, 42].my_none?(Float) #=> false
+p [].my_none? #=> true
+p [nil].my_none? #=> true
+p [nil, false].my_none? #=> true
+p [nil, false, true].my_none? #=> false
+p 'count examples' # Count
+ary = [1, 2, 4, 2]
+p ary.count(&:even?) #=> 3
+p ary.count #=>4
+p ary.count(2) #=>2
+p 'map examples' # MAP
+p [1, 2, 3, 4].my_map { |i| i * i } #=> [1, 4, 9, 16]
+p [1, 2, 3, 4].my_map { 'cat' } #=> ["cat", "cat", "cat", "cat"]
+
+# rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity,  Metrics/ModuleLength, Style/ClassEqualityComparison, Lint/AmbiguousBlockAssociation
