@@ -133,7 +133,7 @@ module Enumerable
   end
 
   def my_instance_of(args, var)
-    return true if var.class == args || var.class.superclass == args
+    return true if var.instance_of?(args) || var.class.superclass == args
 
     false
   end
