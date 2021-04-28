@@ -124,11 +124,15 @@ module Enumerable
   end
 
   # my_map Method
-  def my_map
-    return to_enum(:my_map) unless block_given?
+  def my_map(proc = nil)
+    return to_enum(:my_map, proc) unless block_given? || proc
 
     mp_new = []
-    my_each { |var| mp_new.push(yield(var)) }
+    if proc
+      my_each { |var| mp_new.push(proc.call(var)) }
+    else
+      my_each { |var| mp_new.push(yield(var)) }
+    end
     mp_new
   end
 
