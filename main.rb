@@ -63,6 +63,7 @@ module Enumerable
         return true
       elsif args
         to_a.my_each { |var| return false unless my_instance_of(args, var) || var == args }
+        return true
       end
       to_a.my_each { |var| return false unless var }
       return true
@@ -80,6 +81,7 @@ module Enumerable
         return false
       elsif args
         to_a.my_each { |var| return true if my_instance_of(args, var) || var == args }
+        return false
       end
 
       to_a.my_each { |var| return true if var == true }
