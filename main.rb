@@ -107,8 +107,6 @@ module Enumerable
 
   # my_count Method
   def my_count(num = nil)
-    return to_a.size unless block_given?
-
     counter = 0
     if num
       my_each do |var|
@@ -116,6 +114,8 @@ module Enumerable
       end
 
     else
+      return to_a.size unless block_given?
+
       my_each do |var|
         counter += 1 if yield var
       end
