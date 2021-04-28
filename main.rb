@@ -62,7 +62,7 @@ module Enumerable
         to_a.my_each { |var| return false unless args.match(var) }
         return true
       elsif args
-        to_a.my_each { |var| return false unless my_instance_of(args, var) }
+        to_a.my_each { |var| return false unless my_instance_of(args, var) || var == args }
       end
       to_a.my_each { |var| return false unless var }
       return true
@@ -79,7 +79,7 @@ module Enumerable
         to_a.my_each { |var| return true if args.match(var) }
         return false
       elsif args
-        to_a.my_each { |var| return true if my_instance_of(args, var) }
+        to_a.my_each { |var| return true if my_instance_of(args, var) || var == args }
       end
 
       to_a.my_each { |var| return true if var == true }
@@ -96,7 +96,7 @@ module Enumerable
         to_a.my_each { |var| return false if args.match(var) }
         return true
       elsif args
-        to_a.my_each { |var| return false if my_instance_of(args, var) }
+        to_a.my_each { |var| return false if my_instance_of(args, var) || var == args }
       end
       to_a.my_each { |var| return false if var }
       return true
