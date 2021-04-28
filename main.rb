@@ -1,6 +1,6 @@
 # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/ModuleLength, Style/ClassEqualityComparison
 module Enumerable
-  # my_each method
+  # my_each Method
   def my_each
     return to_enum(:my_each) unless block_given?
 
@@ -10,7 +10,7 @@ module Enumerable
     self
   end
 
-  # my_each_with_index
+  # my_each_with_index Method
   def my_each_with_index
     return to_enum(:my_each_with_index) unless block_given?
 
@@ -20,7 +20,7 @@ module Enumerable
     self
   end
 
-  # my_select method
+  # my_select Method
   def my_select
     return to_enum(:my_select) unless block_given?
 
@@ -33,6 +33,7 @@ module Enumerable
     arr
   end
 
+  # my_inject Method
   def my_inject(arg1 = nil, arg2 = nil)
     if arg1.is_a?(Symbol) && !arg2
       base = to_a[0]
@@ -54,6 +55,7 @@ module Enumerable
     base
   end
 
+  # my_all? Method
   def my_all?(args = nil)
     unless block_given?
       if args.instance_of?(Regexp)
@@ -136,38 +138,8 @@ module Enumerable
     false
   end
 end
-p 'all example' # ALL
-# rubocop:disable Lint/AmbiguousBlockAssociation
-p %w[anta bear cata].my_all? { |word| word.length >= 3 } #=> true
-p %w[ant bear cat].my_all? { |word| word.length >= 4 } #=> false
-p %w[cat cat cat].my_all?(/b/) #=> false
-p [1, 2i, 5].my_all?(Numeric) #=> true
-p [nil, true, 99].my_all? #=> false
-p [].my_all? #=> true
-p 'any examples' # ANY
 
-p %w[ant bear cat].my_any? { |word| word.length >= 3 } #=> true
-p %w[ant bear cat].my_any? { |word| word.length >= 4 } #=> true
-p %w[ant bear cat].my_any?(/d/) #=> false
-p [nil, true, 99].my_any?(Integer) #=> true
-p [nil, true, 99].my_any? #=> true
-p [].my_any? #=> false
-p 'none examples' # NONE
-p %w[ant bear cat].my_none? { |word| word.length == 5 } #=> true
-p %w[ant bear cat].my_none? { |word| word.length >= 4 } #=> false
-p %w[ant bear cat].my_none?(/d/) #=> true
-p [1, 3.14, 42].my_none?(Float) #=> false
-p [].my_none? #=> true
-p [nil].my_none? #=> true
-p [nil, false].my_none? #=> true
-p [nil, false, true].my_none? #=> false
-p 'count examples' # Count
-ary = [1, 2, 4, 2]
-p ary.count(&:even?) #=> 3
-p ary.count #=>4
-p ary.count(2) #=>2
-p 'map examples' # MAP
-p [1, 2, 3, 4].my_map { |i| i * i } #=> [1, 4, 9, 16]
-p [1, 2, 3, 4].my_map { 'cat' } #=> ["cat", "cat", "cat", "cat"]
-
-# rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity,  Metrics/ModuleLength, Style/ClassEqualityComparison, Lint/AmbiguousBlockAssociation
+def multiply_els(arr)
+  arr.my_inject(:*)
+end
+# rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity,  Metrics/ModuleLength
