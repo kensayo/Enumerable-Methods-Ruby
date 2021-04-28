@@ -95,9 +95,14 @@ module Enumerable
       if args.instance_of?(Regexp)
         to_a.my_each { |var| return false if args.match(var) }
         return true
+      elsif args.instance_of?(Class)
+        to_a.my_each { |var| return false if my_instance_of(args, var) }
+        return true
       elsif args
-        to_a.my_each { |var| return false if my_instance_of(args, var) || var == args }
+        to_a.my_each { |var| return false if var == args }
+        return true
       end
+
       to_a.my_each { |var| return false if var }
       return true
     end
