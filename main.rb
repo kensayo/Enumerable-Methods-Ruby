@@ -1,6 +1,6 @@
-# rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/ModuleLength
+# rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/ModuleLength, Style/ClassEqualityComparison
 module Enumerable
-  # my_each Method
+  # my_each method
   def my_each
     return to_enum(:my_each) unless block_given?
 
@@ -10,7 +10,7 @@ module Enumerable
     self
   end
 
-  # my_each_with_index Method
+  # my_each_with_index
   def my_each_with_index
     return to_enum(:my_each_with_index) unless block_given?
 
@@ -133,7 +133,7 @@ module Enumerable
   end
 
   def my_instance_of(args, var)
-    return true if var.instance_of?(args) || var.class.superclass == args
+    return true if var.class == args || var.class.superclass == args
 
     false
   end
@@ -142,4 +142,4 @@ end
 def multiply_els(arr)
   arr.my_inject(:*)
 end
-# rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity,  Metrics/ModuleLength
+# rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity,  Metrics/ModuleLength, Style/ClassEqualityComparison
