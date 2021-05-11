@@ -1,59 +1,55 @@
 ![](https://img.shields.io/badge/Microverse-blueviolet)
 
-# Project Name
-
-> One paragraph statement about the project.
-
-![screenshot](./app_screenshot.png)
-
-Additional description about the project and its features.
-
-## Built With
-
-- Major languages
-- Frameworks
-- Technologies used
-
-## Live Demo
-
-[Live Demo Link](https://livedemo.com)
+# Enumerable Methods
 
 
-## Getting Started
 
-**This is an example of how you may give instructions on setting up your project locally.**
-**Modify this file to match your project, remove sections that don't apply. For example: delete the testing section if the currect project doesn't require testing.**
+## Built with
 
-
-To get a local copy up and running follow these simple example steps.
+- Ruby
 
 ### Prerequisites
 
+- Web browser
+- IDE
+- Ruby
+
 ### Setup
+
+- Download/Clone the repository files and navigate to root folder 
+- Run *ruby main.rb* from command line
+- Watch results
+- You can modify the source code to sort any array of strings or integers
 
 ### Install
 
-### Usage
-
-### Run tests
+- Follow [these](https://www.theodinproject.com/paths/full-stack-ruby-on-rails/courses/ruby-programming/lessons/installing-ruby-ruby-programming) steps in order to install ruby 
 
 ### Deployment
 
+- You can deploy this project by cloning it then:
 
+- Go to the repository's settings.
+- Navigate to the GitHub Pages section.
+- Select the appropriate branch.
+
+### Live version
+
+[Live version here]()
 
 ## Authors
 
-👤 **Author1**
+**👤 Kenny Ortega**
 
-- GitHub: [@githubhandle](https://github.com/githubhandle)
-- Twitter: [@twitterhandle](https://twitter.com/twitterhandle)
-- LinkedIn: [LinkedIn](https://linkedin.com/in/linkedinhandle)
+- GitHub: [kensayo](https://github.com/kensayo)
+- Twitter: [@kensayo](https://twitter.com/kensayo)
+- LinkedIn: [LinkedIn](https://www.linkedin.com/in/kenny-ortega-3580aa33/)
 
-👤 **Author2**
+**👤 Mario Alberto Rodriguez Cota**
 
-- GitHub: [@githubhandle](https://github.com/githubhandle)
-- Twitter: [@twitterhandle](https://twitter.com/twitterhandle)
-- LinkedIn: [LinkedIn](https://linkedin.com/in/linkedinhandle)
+- GitHub: [@mariordgez](https://github.com/mariordgez)
+- Twitter: [@MarioRo75396624](https://twitter.com/MarioRo75396624)
+- LinkedIn: [LinkedIn](www.linkedin.com/in/mario-alberto-rodriguez-cota-a2860a205)
 
 ## 🤝 Contributing
 
@@ -67,10 +63,5 @@ Give a ⭐️ if you like this project!
 
 ## Acknowledgments
 
-- Hat tip to anyone whose code was used
-- Inspiration
-- etc
-
-## 📝 License
-
-This project is [MIT](./MIT.md) licensed.
+- [Microverse](https://www.microverse.org/)
+- [The Odin Project](https://www.theodinproject.com/paths/full-stack-ruby-on-rails/courses/ruby-programming/lessons/bubble-sort)
