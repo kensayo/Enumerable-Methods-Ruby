@@ -1,5 +1,5 @@
 require 'spec_helper'
-require_relative '../main.rb'
+require_relative '../main'
 
 def traversal_empty(method, model, arg = nil, &block)
   my_args = [method]

@@ -35,7 +35,6 @@ module Enumerable
 
   # my_inject Method
   def my_inject(arg1 = nil, arg2 = nil)
-    
     if arg1.is_a?(Symbol) && !arg2
       base = to_a[0]
       1.upto(to_a.length - 1) { |item| base = base.send(arg1, to_a[item]) }
