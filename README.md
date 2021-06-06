@@ -43,7 +43,7 @@
 
 - GitHub: [kensayo](https://github.com/kensayo)
 - Twitter: [@kensayo](https://twitter.com/kensayo)
-- LinkedIn: [LinkedIn](https://www.linkedin.com/in/kenny-ortega-3580aa33/)
+- LinkedIn: [LinkedIn](https://www.linkedin.com/in/kennyortega/)
 
 **👤 Mario Alberto Rodriguez Cota**
 
